@@ -30,7 +30,7 @@ class UserController {
             const { username, password } = req.body;
             const foundUser = await user.findOne({ where: { username } });
             if (foundUser == null) {
-                return res.send({ code: 404 })
+                return res.send({ code: 404, status: "USER NOT FOUND" })
             }
             const isValid = bcrypt.compareSync(password, foundUser.dataValues.password);
             if (isValid) {
