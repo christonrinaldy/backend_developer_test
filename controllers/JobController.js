@@ -16,7 +16,6 @@ class JobController {
                         }
 
                     }
-                    console.log(isTrue)
                     return isTrue
                 })
                 res.send(filtered)
