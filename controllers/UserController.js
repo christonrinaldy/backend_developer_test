@@ -5,26 +5,26 @@ const jwt = require("jsonwebtoken");
 const secret = process.env.SECRET
 
 class UserController {
-    static async register(req, res, next) {
-        try {
-            const { username, password } = req.body;
-            const foundUser = await user.findOne({ where: { username } });
+    // static async register(req, res, next) {
+    //     try {
+    //         const { username, password } = req.body;
+    //         const foundUser = await user.findOne({ where: { username } });
 
-            if (foundUser) {
-                return res.send({ code: 409, msg: "email already in use" })
-            }
-            const user_id = uuidv4.v4();
-            const createdUser = await user.create({
-                user_id,
-                username,
-                password
-            })
-            delete createdUser.dataValues.password;
-            res.send(createdUser);
-        } catch (err) {
-            res.send(err)
-        }
-    }
+    //         if (foundUser) {
+    //             return res.send({ code: 409, msg: "email already in use" })
+    //         }
+    //         const user_id = uuidv4.v4();
+    //         const createdUser = await user.create({
+    //             user_id,
+    //             username,
+    //             password
+    //         })
+    //         delete createdUser.dataValues.password;
+    //         res.send(createdUser);
+    //     } catch (err) {
+    //         res.send(err)
+    //     }
+    // }
     static async login(req, res) {
         try {
             const { username, password } = req.body;
@@ -40,10 +40,10 @@ class UserController {
                 
                 res.send({status: 200, token})
             } else {
-                res.send("password salah")
+                res.send({code: 403, status: "error", message: "wrong username/email"})
             }
         } catch (err) {
-            res.send(err)
+            res.send({code: 500, status: "Internal Server Error"})
         }
     }
 }
