@@ -25,10 +25,10 @@ class JobController {
                     }
                     return isTrue
                 })
-                res.send(filtered)
+                res.send({code: 200, status: "SUCCESS", data: filtered})
             })
             .catch(err => {
-                res.send(err)
+                res.send({code: 500, msg: "Internal Server Error"})
             })
 
     }
@@ -37,10 +37,11 @@ class JobController {
         const url = `http://dev3.dansmultipro.co.id/api/recruitment/positions/${id}`
         axios.get(url)
             .then(raw => {
-                res.send(raw.data);
+                res.send({code: 200, status: "SUCCESS", data: raw.data})
             })
             .catch(err => {
-                res.send(err)
+                console.log(err)
+                res.send({code: 500, msg: "Internal Server Error"})
             })
     }
 }
