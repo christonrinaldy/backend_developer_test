@@ -20,6 +20,11 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'user',
+    hooks: {
+      beforeCreate: (instance, opt) => {
+        instance.password = bcrypt.hashSync(instance.password, 5);
+      }
+    }
   });
   return user;
 };
