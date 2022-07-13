@@ -6,7 +6,7 @@ function authentication(req,res,next){
     try{
         let token =  req.headers.token
         if(!token){
-            res.status(400).json({message:'token not found'})
+            res.status(401).json({message:"not authorized"})
         }
         else{
             const userLogin = jwt.verify(token, secret)
@@ -14,11 +14,11 @@ function authentication(req,res,next){
                 req.userLogin = userLogin;
                 next();
             }else{
-                res.status(500).json({message:'not authenticated'})
+                res.status(401).json({message:"not authorized"})
             }
         }
     }catch(err){
-        res.status(500).json({message:err.message})
+        res.status(401).json({message:"not authorized"})
     }
     
 
